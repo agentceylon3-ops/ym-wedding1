@@ -39,7 +39,7 @@
         }
 
         body {
-           background-image:url('background.jpeg'); /* Darker background for PC view */
+           background-image:url('bg.jpg'); /* Darker background for PC view */
             font-family: 'Playfair Display', serif;
             display: flex;
             justify-content: center;
@@ -49,7 +49,7 @@
 
         /* Main Container - Acts like a mobile screen on PC */
         .invitation-card {
-            background-image:url('background.jpeg');
+            background-image:url('bg.jpg');
             width: 100%;
             max-width: 420px; /* Mobile width constraint for PC */
             min-height: 100vh;
@@ -997,9 +997,108 @@ body {
     }
 }
 
+
+
+/*intro video*/
+
+/* Fullscreen Overlay Style */
+#intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 1.2s ease-in-out; /* Smooth Fade Out Animation */
+}
+
+/* Video Frame (Responsive 9:16) */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#intro-video {
+  /* 9:16 Aspect Ratio එක Tab/Desktop වලදී පවා හරියටම පවත්වා ගැනීමට */
+  aspect-ratio: 9 / 16;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: 100%;
+  object-fit: contain; /* Video එක කැපෙන්නේ නැතිව සම්පූර්ණයෙන්ම පෙනීමට */
+}
+
+/* Skip Button Style */
+#skip-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  z-index: 10000;
+  transition: background 0.3s ease;
+}
+
+#skip-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Class to trigger fade out */
+.fade-out {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* Main Content Fade-in Animation */
+#main-content {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+#main-content.visible {
+  opacity: 1;
+}
+
     </style>
 </head>
 <body>
+
+  <!-- Intro Video Container -->
+<div id="intro-overlay">
+  <div class="video-wrapper">
+    <!-- ඔබේ Video File එකේ නම හෝ Link එක src එකට දෙන්න -->
+    <video id="intro-video" autoplay muted playsinline>
+      <source src="intro.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    
+    <!-- Video එක Skip කිරීමට කැමති අයට Button එකක් -->
+    <button id="skip-btn">Skip</button>
+  </div>
+</div>
+
+<!-- Main Website Content (ඔබේ වෙබ් අඩවියේ ප්‍රධාන කොටස) -->
+<main id="main-content">
+  <!-- ඔබේ Main Web Content එක මෙතැනට එයි -->
+</main>
+
+
+
     <div class="page-transition-overlay"></div>
     <div id="invite-notification" class="wedding-notification">
   <div class="notification-content">
@@ -1529,6 +1628,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+
+
+
+//intro
+document.addEventListener('DOMContentLoaded', () => {
+  const introOverlay = document.getElementById('intro-overlay');
+  const introVideo = document.getElementById('intro-video');
+  const skipBtn = document.getElementById('skip-btn');
+  const mainContent = document.getElementById('main-content');
+
+  // Intro එක අයින් කර Main Page එක පෙන්වන Function එක
+  function closeIntro() {
+    introOverlay.classList.add('fade-out');
+    
+    // Main Content එක Fade In කිරීම
+    setTimeout(() => {
+      mainContent.classList.add('visible');
+    }, 300);
+
+    // Fade Out Animation එක ඉවර වූ පසු Overlay එක DOM එකෙන් Hidden කිරීම
+    setTimeout(() => {
+      introOverlay.style.display = 'none';
+    }, 1200);
+  }
+
+  // 1. Video එක Play වී අවසන් වූ විට Auto Close වීම
+  introVideo.addEventListener('ended', closeIntro);
+
+  // 2. Skip Button එක Click කළ විට Close වීම
+  skipBtn.addEventListener('click', closeIntro);
+
+  // Auto-play Block වෙන අවස්ථාවන් වලදී ආරක්ෂිතව Handles කිරීම
+  introVideo.play().catch(error => {
+    console.log("Autoplay blocked:", error);
+    // Auto-play නොවූවොත් කෙළින්ම Skip කිරීමට හෝ User Tap එකක් බලාපොරොත්තු වීමට
+  });
+});
+
+
   
     </script>
 </body>
