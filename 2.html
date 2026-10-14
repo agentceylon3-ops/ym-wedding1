@@ -1000,73 +1000,86 @@ body {
 
 
 /*intro video*/
-/* Intro එක පවතින විට Screen එක Scroll වීම සම්පූර්ණයෙන්ම වැළැක්වීමට */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+}
+
+/* Intro active iddagale Scroll block madalu */
 body.intro-active {
-  overflow: hidden;
-  height: 100vh;
+  overflow: hidden !important;
+  height: 100vh !important;
   position: fixed;
   width: 100%;
 }
 
-/* Fullscreen Overlay Style */
+/* Fullscreen Overlay - Mobile Viewport height fix (dvh/svh) */
 #intro-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* Mobile browser address bar fix */
   background-color: #000000;
-  z-index: 9999;
+  z-index: 99999;
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 1;
-  transition: opacity 1.2s ease-in-out;
+  transition: opacity 1s ease-in-out;
 }
 
 .video-wrapper {
   position: relative;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Phone එකේ කළු ඉස්මතු වීම් (Black Bars) නැතිව සම්පූර්ණ Screen එකම පිරී යාමට (object-fit: cover) */
+/* Video Fullscreen Fitting (No black bars on phone screen) */
 #intro-video {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
   display: block;
 }
 
-/* Skip Button එක උඩට සහ පැහැදිලිව පෙනෙන ලෙස සකස් කිරීම */
+/* Skip Button - Clearly Visible on Top Right */
 #skip-btn {
   position: absolute;
-  top: 30px;   /* Phone එකේ ඉහළ කොටසින් පෙන්වයි */
+  top: 40px;
   right: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-size: 14px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  backdrop-filter: blur(5px);
-  z-index: 10000;
-  transition: background 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100000;
+  outline: none;
 }
 
-#skip-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
+#skip-btn:active {
+  transform: scale(0.95);
 }
 
-/* Fade Out Animation */
+/* Fade Out Animation Class */
 .fade-out {
   opacity: 0 !important;
-  pointer-events: none;
+  pointer-events: none !important;
 }
 
-/* Main Content Fade-in Animation */
+/* Main Content Visibility */
 #main-content {
   opacity: 0;
   transition: opacity 1s ease-in-out;
@@ -1083,11 +1096,12 @@ body.intro-active {
 <!-- Intro Video Container -->
 <div id="intro-overlay">
   <div class="video-wrapper">
-    <!-- Skip Button එක උඩ දකුණු කෙළවරට දමා ඇත -->
-    <button id="skip-btn">Skip</button>
+    <!-- Skip Button (Top Right) -->
+    <button id="skip-btn" type="button">Skip</button>
     
-    <video id="intro-video" autoplay muted playsinline>
-      <source src="your-video.mp4" type="video/mp4" />
+    <!-- Video element with playsinline and muted for mobile autoplay -->
+    <video id="intro-video" autoplay muted playsinline preload="auto">
+      <source src="intro.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
   </div>
@@ -1095,7 +1109,7 @@ body.intro-active {
 
 <!-- Main Website Content -->
 <main id="main-content">
-  <!-- ඔබේ Main Web Content එක මෙතැනට එයි -->
+  <!-- Nimma Main Web Content illi irali -->
 </main>
 
 
@@ -1643,37 +1657,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const mainContent = document.getElementById('main-content');
   const body = document.body;
 
-  // Intro එක පවතින අවස්ථාවේ Page එක Scroll වීම වැළැක්වීමට Class එකක් එකතු කිරීම
+  // Body scroll disable
   body.classList.add('intro-active');
 
-  // Intro එක අයින් කර Main Page එක පෙන්වන Function එක
+  // Intro close Function
   function closeIntro() {
     introOverlay.classList.add('fade-out');
-    
-    // Scroll වීම නැවත සක්‍රීය කිරීම
     body.classList.remove('intro-active');
-    
-    // Main Content එක Fade In කිරීම
+
     setTimeout(() => {
       mainContent.classList.add('visible');
-    }, 300);
+    }, 200);
 
-    // Fade Out Animation එක ඉවර වූ පසු Overlay එක Hidden කිරීම
     setTimeout(() => {
       introOverlay.style.display = 'none';
-    }, 1200);
+    }, 1000);
   }
 
-  // 1. Video එක අවසන් වූ විට
+  // Video play end agiddaga close aguthe
   introVideo.addEventListener('ended', closeIntro);
 
-  // 2. Skip Button එක ක්ලික් කළ විට
+  // Skip button click madiddaga close aguthe
   skipBtn.addEventListener('click', closeIntro);
 
-  // Autoplay handle කිරීම
-  introVideo.play().catch(error => {
-    console.log("Autoplay blocked:", error);
-  });
+  // Force Play for Mobile Browsers
+  if (introVideo) {
+    introVideo.muted = true; // Mobile autoplay ge compulsory
+    
+    const playPromise = introVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((error) => {
+        console.log("Autoplay was prevented:", error);
+        // Autoplay fail aadre user screen tap madidaaga play agalu
+        document.addEventListener('click', () => {
+          introVideo.play();
+        }, { once: true });
+      });
+    }
+  }
 });
 
 
