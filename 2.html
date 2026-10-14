@@ -1000,23 +1000,6 @@ body {
 
 
 /*intro video*/
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-}
-
-/* Intro එක පවතින විට Screen එක Scroll වීම සම්පූර්ණයෙන්ම වැළැක්වීමට (Mobile friendly lock) */
-html.intro-active, body.intro-active {
-  overflow: hidden !important;
-  height: 100vh !important;
-  position: fixed !important;
-  width: 100% !important;
-}
-
-/* Fullscreen Overlay Style */
 #intro-overlay {
   position: fixed;
   top: 0;
@@ -1025,7 +1008,7 @@ html.intro-active, body.intro-active {
   height: 100vh;
   height: 100dvh;
   background-color: #000000;
-  z-index: 99999;
+  z-index: 9999999;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1039,7 +1022,6 @@ html.intro-active, body.intro-active {
   height: 100%;
 }
 
-/* Video Fullscreen Fitting */
 #intro-video {
   width: 100%;
   height: 100%;
@@ -1047,7 +1029,6 @@ html.intro-active, body.intro-active {
   display: block;
 }
 
-/* Skip Button Styling */
 #skip-btn {
   position: absolute;
   top: 40px;
@@ -1062,7 +1043,7 @@ html.intro-active, body.intro-active {
   cursor: pointer;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  z-index: 100000;
+  z-index: 10000000;
   outline: none;
 }
 
@@ -1070,22 +1051,9 @@ html.intro-active, body.intro-active {
   transform: scale(0.95);
 }
 
-/* Fade Out Animation Class */
 .fade-out {
   opacity: 0 !important;
   pointer-events: none !important;
-}
-
-/* Main Content Animation Fix */
-#main-content {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
-}
-
-#main-content.visible {
-  opacity: 1;
-  visibility: visible;
 }
 
     </style>
@@ -1104,11 +1072,6 @@ html.intro-active, body.intro-active {
     </video>
   </div>
 </div>
-
-<!-- Main Website Content -->
-<main id="main-content">
-  <!-- ඔබේ Main Web Content එක මෙතැනට එයි -->
-</main>
 
 
 
@@ -1326,7 +1289,7 @@ html.intro-active, body.intro-active {
       </div>
     </div>
 
-    <!--
+ 
     <div class="form-group guest-group">
       <label>Number of Guests</label>
       <div class="guest-counter">
@@ -1335,7 +1298,7 @@ html.intro-active, body.intro-active {
         <button type="button" id="increase-btn" class="counter-btn">+</button>
       </div>
     </div>
-    -->
+   
 
     <button type="submit" id="submit-btn" class="submit-btn">
       <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
@@ -1652,55 +1615,76 @@ document.addEventListener('DOMContentLoaded', () => {
   const introOverlay = document.getElementById('intro-overlay');
   const introVideo = document.getElementById('intro-video');
   const skipBtn = document.getElementById('skip-btn');
-  const mainContent = document.getElementById('main-content');
 
-  // Intro එක පවතින අවස්ථාවේ Screen එක Scroll වීම සම්පූර්ණයෙන්ම Lock කිරීම
-  document.documentElement.classList.add('intro-active');
-  document.body.classList.add('intro-active');
+  // 1. වෙනත් කෝඩ් වලට යටපත් නොවීමට JavaScript මඟින් Scroll Lock එක Dynamic ලෙස එකතු කිරීම
+  const lockStyle = document.createElement('style');
+  lockStyle.id = 'dynamic-scroll-lock';
+  lockStyle.innerHTML = `
+    html, body {
+      overflow: hidden !important;
+      height: 100vh !important;
+      position: fixed !important;
+      width: 100% !important;
+    }
+  `;
+  document.head.appendChild(lockStyle);
 
-  // Intro එක අයින් කර Main Page එක පෙන්වන Function එක
+  // Intro එක ඉවත් කර සාමාන්‍ය තත්ත්වයට පත් කරන Function එක
   function closeIntro() {
-    // Fade out effect එක ලබා දීම
+    if (!introOverlay || introOverlay.style.display === 'none') return;
+    
     introOverlay.classList.add('fade-out');
     
-    // Scroll lock එක ඉවත් කිරීම
-    document.documentElement.classList.remove('intro-active');
-    document.body.classList.remove('intro-active');
+    // Scroll Lock එක ඉවත් කිරීම
+    const existingLock = document.getElementById('dynamic-scroll-lock');
+    if (existingLock) {
+      existingLock.remove();
+    }
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
 
-    // Main Content එක Fade In කිරීම
-    setTimeout(() => {
-      mainContent.classList.add('visible');
-    }, 100);
-
-    // Overlay එක સંપૂર્ણයෙන් DOM එකෙන් ඉවත් කිරීම
+    // Overlay එක સંપૂર્ણයෙන් ඉවත් කිරීම
     setTimeout(() => {
       introOverlay.style.display = 'none';
     }, 1000);
   }
 
-  // 1. Video එක අවසන් වූ විට
-  introVideo.addEventListener('ended', closeIntro);
+  // 2. Fallback Timer (උදාහරණයක් ලෙස තත්පර 9 කින් Video එක කෙසේ හෝ අවසන් වී site එක විවෘත වේ)
+  const safetyTimer = setTimeout(() => {
+    closeIntro();
+  }, 9000);
 
-  // 2. Skip Button එක ක්ලික් කළ විට
-  if (skipBtn) {
-    skipBtn.addEventListener('click', closeIntro);
-  }
-
-  // Mobile Autoplay සක්‍රීය කිරීම
-  introVideo.muted = true;
-  const playPromise = introVideo.play();
-  if (playPromise !== undefined) {
-    playPromise.catch((error) => {
-      console.log("Autoplay was prevented:", error);
-      // Browser එකෙන් Block කළහොත් Screen එක Tap කළ සැණින් Play වීමට
-      document.addEventListener('click', () => {
-        introVideo.play();
-      }, { once: true });
+  // 3. Video එක අවසන් වූ විට
+  if (introVideo) {
+    introVideo.addEventListener('ended', () => {
+      clearTimeout(safetyTimer);
+      closeIntro();
     });
   }
+
+  // 4. Skip Button එක ක්ලික් කළ විට
+  if (skipBtn) {
+    skipBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      clearTimeout(safetyTimer);
+      closeIntro();
+    });
+  }
+
+  // 5. Mobile Autoplay හැසිරවීම
+  if (introVideo) {
+    introVideo.muted = true;
+    const playPromise = introVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((error) => {
+        console.log("Autoplay blocked:", error);
+        document.addEventListener('click', () => {
+          introVideo.play();
+        }, { once: true });
+      });
+    }
+  }
 });
-
-
   
     </script>
 </body>
