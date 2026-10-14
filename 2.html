@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Nethmi & Sanuja</title>
+    <script>
+    // Access තියෙනවද කියලා check කරනවා
+    if (sessionStorage.getItem('allowAccess') !== 'true') {
+        window.location.href = 'index.html';
+    }
+
+    // Page එක close කරද්දී හරි, Refresh කරද්දී හරි අර flag එක remove කරනවා.
+    // එතකොට තමයි ආයේ refresh කලොත් index.html එකට යන්නේ.
+    window.addEventListener('beforeunload', function() {
+        sessionStorage.removeItem('allowAccess');
+    });
+</script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #FDFaf6; /* Creamy background */
+            --primary-text:#b59049 ; /* Burgundy / Deep Red */
+            --secondary-text: #8b5a62; /* Lighter Burgundy */
+            --accent-gold: #c8a061; /* Gold accents */
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+           background-image:url('background.jpeg'); /* Darker background for PC view */
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Main Container - Acts like a mobile screen on PC */
+        .invitation-card {
+            background-image:url('background.jpeg');
+            width: 100%;
+            max-width: 420px; /* Mobile width constraint for PC */
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 40px 20px 80px 20px; /* Bottom padding for nav bar */
+            text-align: center;
+        
+        }
+
+        /* Typography */
+        .suba-mangalam {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-text);
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
+
+        .invited-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.55rem;
+            color: var(--accent-gold);
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Couple Names */
+        .names-container {
+            margin-bottom: 30px;
+        }
+
+        .names {
+            font-family: "Roboto Condensed", sans-serif;
+            color:var(--secondary-text);
+            line-height: 1;
+        }
+
+        
+
+        /* Parents Info */
+        .parents-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .parent-block {
+            text-align: center;
+            width: 45%;
+        }
+
+        .parent-block span {
+            display: block;
+            font-size: 0.65rem;
+            color: var(--secondary-text);
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 3px;
+        }
+
+        .parent-block p {
+            font-size: 0.8rem;
+            color: var(--primary-text);
+            font-weight: 600;
+        }
+
+        /* Date Section */
+        .date-section {
+            margin: 20px 0;
+            padding: 15px 0;
+            border-top: 1px solid rgba(200, 160, 97, 0.3); /* Faint gold line */
+            border-bottom: 1px solid rgba(200, 160, 97, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date-month, .date-year {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-text);
+            letter-spacing: 2px;
+            flex: 1;
+        }
+
+        .date-day {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-text);
+            flex: 1;
+        }
+
+        .full-date {
+            font-size: 0.95rem;
+            color: var(--primary-text);
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Illustration / Image */
+        .illustration-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .illustration-container img {
+            width: 80%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+       
+
+        /* Responsive Fixes */
+        @media (max-width: 450px) {
+            body {
+                background-color: var(--bg-color); /* Matches mobile frame */
+            }
+            .invitation-card {
+                box-shadow: none;
+                min-height: 100vh;
+            }
+            
+        }
+
+        .date1{
+            font-family: "Winky Sans", sans-serif;
+            color:#8b5a62 ;
+        }
+
+        /*time line*/
+        /* Timeline Section Styles */
+.timeline-section {
+    padding: 10px 20px;
+    margin-top: 40px;
+    margin-bottom: 60px; /* Space for the bottom navigation bar */
+    text-align: left;
+}
+
+.timeline-main-title {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--secondary-text);
+    letter-spacing: 3px;
+    margin-bottom: 35px;
+    text-transform: uppercase;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 25px;
+    align-items: flex-start;
+}
+
+.timeline-year {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--primary-text);
+    width: 60px; /* Keeps the years perfectly aligned */
+    flex-shrink: 0;
+    padding-right: 15px;
+    font-weight: 600;
+}
+
+.timeline-content {
+    flex-grow: 1;
+    border-left: 1px solid rgba(200, 160, 97, 0.4); /* Faint gold vertical line */
+    padding-left: 15px;
+    padding-bottom: 5px;
+}
+
+.timeline-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-text);
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.timeline-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    color: var(--secondary-text);
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+
+/*count down*/
+/* Container styling */
+.countdown-container {
+ text-align: center;
+ padding: 30px 15px;
+ font-family: 'Playfair Display', Georgia, serif; /* Elegant serif font */
+ max-width: 500px;
+ margin: 0 auto;
+}
+
+.countdown-title {
+ font-size: 22px;
+ color: #5a2a27; /* Dark maroon theme color */
+ margin-bottom: 20px;
+ font-weight: 600;
+ letter-spacing: 1px;
+}
+
+/* Timer Layout */
+.timer-grid {
+ display: flex;
+ justify-content: center;
+ gap: 12px;
+}
+
+/* Individual box style matching the image */
+.time-box {
+ background: rgba(255, 255, 255, 0.65);
+ border: 1px solid rgba(180, 150, 120, 0.3);
+ border-radius: 8px;
+ padding: 12px 10px;
+ min-width: 65px;
+ box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+ backdrop-filter: blur(5px);
+}
+
+.time-box span {
+ display: block;
+ font-size: 24px;
+ font-weight: bold;
+ color: #4a1c1d;
+}
+
+.time-box p {
+ margin: 4px 0 0 0;
+ font-size: 9px;
+ letter-spacing: 1px;
+ color: #7a6a65;
+ font-family: Arial, sans-serif;
+ text-transform: uppercase;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+ .timer-grid {
+ gap: 8px;
+ }
+ .time-box {
+ min-width: 55px;
+ padding: 10px 6px;
+ }
+ .time-box span {
+ font-size: 20px;
+ }
+ .time-box p {
+ font-size: 8px;
+ }
+}
+
+/*wedding event*/
+/* Mobile එකට ගැලපෙන විදිහට ප්‍රමාණය පාලනය කිරීම */
+        .wedding-timeline-container {
+            width: 100%;
+            max-width: 450px; 
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* එක් එක් Event Box එක සඳහා */
+        .event-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* රතු පාට රවුම සහ Icon එක */
+        .icon-circle {
+            background-color: #7b1e22; /* තද රතු / Maroon */
+            color: #ffffff;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Event එකේ නම */
+        .event-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #2c2c2c;
+            letter-spacing: 2px;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+
+        /* දිනය, වෙලාව සහ ස්ථානය */
+        .event-details {
+            font-size: 14px;
+            color: #555555;
+            margin: 4px 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* වෙලාව පෙන්වන කුඩා icon එක සඳහා */
+        .event-details i {
+            font-size: 12px;
+            margin-right: 5px;
+            color: #888888;
+        }
+
+        /* Event දෙකක් අතර තියෙන ලස්සන ඉර (Divider) */
+        .event-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #d4c5b9, transparent);
+            margin: 40px 0;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        /*gallery*/
+        /* Gallery Section එකේ සාමාන්‍ය හැඩය */
+.gallery-section {
+  max-width: 800px; /* ඔයාට ඕන නම් මේක වෙනස් කරගන්න පුළුවන් */
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 20px;
+}
+
+.gallery-title {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 28px;
+  color: #333333;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+/* Grid එක හදන විදිහ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* තීරු 2යි */
+  grid-auto-rows: 150px; /* එක පේළියක මූලික උස */
+  gap: 12px; /* ෆොටෝ අතර පරතරය */
+}
+
+.grid-item {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px; /* ෆොටෝ එකේ මුළු රවුම් කිරීම */
+  overflow: hidden;
+}
+
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ෆොටෝ එක ඇදෙන්නේ නැතුව ලස්සනට fit වෙන්න */
+  display: block;
+  transition: transform 0.3s ease; /* (Optional) පොඩි zoom effect එකක් */
+}
+
+.grid-item img:hover {
+  transform: scale(1.05); /* (Optional) Mouse එක ගෙනිච්චම ලොකු වෙන්න */
+}
+
+/* ෆොටෝ 6 Grid එක ඇතුළෙ ස්ථානගත කරන විදිහ (ඔයාගේ ෆොටෝ එකේ වගේ) */
+.item-1 {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3; /* පේළි 2ක් පුරාවට උසට තියෙනවා */
+}
+
+.item-2 {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+.item-3 {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+.item-4 {
+  grid-column: 1 / 2;
+  grid-row: 3 / 5; /* පේළි 2ක් පුරාවට උසට තියෙනවා */
+}
+
+.item-5 {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
+
+.item-6 {
+  grid-column: 2 / 3;
+  grid-row: 4 / 5;
+}
+
+/* Mobile ෆෝන් වලටත් ලස්සනට පේන්න Responsive කිරීම */
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-auto-rows: 200px; /* ලොකු Screen වල ෆොටෝ ටිකක් ලොකුවට පේන්න */
+    gap: 16px;
+  }
+}
+
+
+/*location*/
+/* සම්පූර්ණ Section එකේ හැඩය */
+.venue-section {
+  max-width: 600px; /* ෆෝන් එකේ වගේ ලස්සනට පේන්න size එකක් දුන්නා */
+  margin: 40px auto;
+  padding: 30px 20px;
+  background-color: #fefdfb; /* ක්‍රීම් පාටට හුරු සුදු පාටක් */
+  border-radius: 20px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+}
+
+/* පොඩි අකුරු (THE SETTING / VENUE) */
+.sub-heading {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #999999;
+  margin-bottom: 8px;
+}
+
+/* ප්‍රධාන මාතෘකාව (Wedding Venue) */
+.main-heading {
+  font-family: 'Georgia', serif; /* ලස්සන Wedding style font එකක් */
+  font-size: 28px;
+  color: #723c4a; /* ෆොටෝ එකේ තියෙන වගේ තද රෝස/දුඹුරු පාටක් */
+  margin: 0 0 30px 0;
+  font-weight: normal;
+}
+
+/* විස්තර තියෙන කොටස */
+.venue-details {
+  margin-bottom: 25px;
+}
+
+/* Location Icon එක */
+.icon-wrapper {
+  color: #555555;
+  margin-bottom: 10px;
+}
+
+/* හෝටලයේ නම */
+.venue-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222222;
+  margin: 5px 0;
+}
+
+.venue-location {
+  font-size: 14px;
+  color: #666666;
+  margin: 0;
+}
+
+/* Map එක වටේට රවුම් කරලා ලස්සන කරන්න */
+.map-container {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden; /* මේකෙන් Map එකේ කොන් 4 රවුම් වෙනවා */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* පොඩි Shadow එකක් */
+}
+
+.map-container iframe {
+  display: block; /* යටින් එන හිඩැස නැති කරන්න */
+  width: 100%;
+  height: 350px; /* Map එකේ උස */
+}
+
+
+/*rsvp*/
+.rsvp-section {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 40px 20px;
+  background-color: #fefdfb;
+  border-radius: 20px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.sub-heading {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+.main-heading {
+  font-family: 'Georgia', serif;
+  font-size: 32px;
+  color: #723c4a;
+  margin: 10px 0 20px 0;
+  font-weight: normal;
+}
+
+.rsvp-text {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.rsvp-deadline {
+  font-size: 14px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+.rsvp-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0dcd5;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #723c4a;
+}
+
+/* Radio Buttons Styling */
+.radio-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.radio-label {
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.radio-label input[type="radio"] {
+  accent-color: #723c4a; /* Radio button එකේ පාට */
+}
+
+/* Guest Counter Styling */
+.guest-group {
+  text-align: center;
+}
+
+.guest-group label {
+  text-align: center;
+}
+
+.guest-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.counter-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #d3c7b6;
+  background-color: transparent;
+  color: #723c4a;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.counter-btn:hover {
+  background-color: #f0e9df;
+}
+
+input[type="number"] {
+  width: 40px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  pointer-events: none; /* User ට type කරන්න බැරි වෙන්න */
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #723c4a;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #723c4a;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #723c4a;
+  color: #fff;
+}
+
+.form-message {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+
+/*foter*/
+/* ප්‍රධාන පසුබිම (Dark Theme) */
+.footer-section {
+  background-color: #1a1816; /* කළු පාටට හුරු අඳුරු දුඹුරු පාටක් */
+  color: #d8cdba; /* ළා රන්වන්/ක්‍රීම් පාටක් */
+  text-align: center;
+  padding: 60px 20px 20px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* SAVE THE DATE */
+.save-date-sub {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #a3957f;
+  margin-bottom: 15px;
+}
+
+/* දවස */
+.big-date {
+  font-family: 'Georgia', serif;
+  font-size: 38px;
+  letter-spacing: 5px;
+  color: #e8dbce;
+  margin: 0 0 15px 0;
+  font-weight: normal;
+}
+
+/* Thank you text */
+.thank-you-text {
+  font-size: 15px;
+  font-style: italic;
+  color: #b8aa94;
+  margin-bottom: 25px;
+}
+
+/* Heart Icon */
+.divider-icon {
+  font-size: 16px;
+  color: #a3957f;
+  margin-bottom: 25px;
+}
+
+/* නම් දෙක */
+.couple-names {
+  font-family: 'Georgia', serif;
+  font-size: 30px;
+  color: #e8dbce;
+  margin: 0 0 10px 0;
+  font-weight: normal;
+}
+
+/* Venue එක */
+.venue-name {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #a3957f;
+  margin-bottom: 45px;
+}
+
+/* Wedding Contact එක */
+.contact-info {
+  margin-bottom: 40px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(216, 205, 186, 0.15); /* උඩින් පොඩි ඉරක් */
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-info p {
+  font-size: 12px;
+  color: #8c7e6a;
+  margin-bottom: 8px;
+}
+
+.contact-info a {
+  color: #d8cdba;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.contact-info a:hover {
+  color: #ffffff;
+}
+
+/* Developer Credit (ඔයාගේ විස්තර) */
+.developer-credit {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #111111;
+  font-size: 12px;
+  color: #666666;
+}
+
+.developer-credit strong {
+  color: #9e8d75;
+  letter-spacing: 1px;
+}
+
+.developer-credit a {
+  color: #666666;
+  text-decoration: none;
+}
+
+.developer-credit a:hover {
+  color: #9e8d75;
+}
+
+
+ /*slide animate*/
+        /* Page Transition Overlay එක */
+/* පේජ් එක යටට තල්ලු නොවන, හිස් ඉඩ නොහැදෙන නව Overlay CSS එක */
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1a1816; /* ඔයාගේ Theme එකේ Dark Color එක */
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden; /* මේකෙන් පේජ් එක යට කිසිම හිස් ඉඩක් හැදෙන්නේ නැහැ */
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Button එක Click කරපු ගමන් Slide නොවී Smooth එකේ Fade වෙනවා */
+.page-transition-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+/* අලුත් Page එකට ආපු ගමන් මුළු Page එකම ලස්සනට Smooth වී Open වීම */
+body {
+  animation: pageFadeIn 0.6s ease-out forwards;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98); /* පොඩියට ඉඳන් ලොකු වෙන Effect එකක් */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* (Optional) Button එකේ Style එක */
+.transition-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #723c4a;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-family: sans-serif;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.transition-btn:active {
+  transform: scale(0.95);
+}
+
+
+
+/*notification*/
+/* Notification Box Style */
+.wedding-notification {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fefdfb;
+  border: 1px solid #d8cdba;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  padding: 15px 35px 15px 20px;
+  border-radius: 12px;
+  z-index: 100000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.wedding-notification.show {
+  opacity: 1;
+  visibility: visible;
+  top: 20px;
+}
+
+#notification-message {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #723c4a;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #999;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.image-container {
+    width: 100%;
+    max-width: 600px; /* Oyaata kamathi maximum width ekak me thanata danna puluwan */
+    margin: 0 auto;   /* Image eka center karaganna */
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px; /* On nam witharak corners round karaganna meka danna puluwan */
+}
+
+
+
+
+ /*kola halena funtion eka*/
+        /* කොළ හැලෙන ප්‍රධාන කොටුව */
+.leaves-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* මේකෙන් කරන්නේ parent div එකේ උසටම මේක හැදෙන එකයි */
+    overflow: hidden;
+    pointer-events: none; /* මේක දැම්මම කොළ උඩින් Click කරන්න පුළුවන් */
+    z-index: 1; /* පිටිපස්සෙන් පේන්න අංකය අඩුවෙන් දුන්නා */
+}
+
+/* තනි කොළයක ස්වභාවය */
+.leaf {
+    position: absolute;
+    top: -50px; /* උඩ නොපෙනෙන තැනින් පටන් ගන්නේ */
+    color: #c8a061; /* ඔයාගේ Theme එකේ Gold පාට */
+    /* opacity එක JS එකෙන් random දෙනවා, ඒත් මෙතනත් මූලිකව අඩු කරලා තියෙන්නේ */
+    animation: fall linear infinite, sway ease-in-out infinite alternate;
+}
+
+/* පහළට වැටෙන Animation එක */
+@keyframes fall {
+    0% {
+        top: -50px;
+    }
+    100% {
+        top: 100%; /* container එකේ යටටම වැටිලා නොපෙනී යනවා */
+    }
+}
+
+/* දෙපැත්තට වැනෙන (Sway) Effect එක - ස්වභාවික ගතියක් එන්න */
+@keyframes sway {
+    0% {
+        transform: translateX(0px) rotate(0deg);
+    }
+    100% {
+        transform: translateX(25px) rotate(45deg);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="page-transition-overlay"></div>
+    <div id="invite-notification" class="wedding-notification">
+  <div class="notification-content">
+    <span class="close-btn" onclick="closeNotification()">×</span>
+    <p id="notification-message"></p>
+  </div>
+</div>
+
+    <div class="invitation-card">
+
+             <!-- මේක ඇතුලේ තියෙන දුරට විතරයි කොළ හැලෙන්නේ -->
+<div style="position: relative; overflow: hidden; width: 100%;">
+    
+    <!-- කොළ හැලෙන Container එක (මේක අනිවාර්යයෙන් දාන්න) -->
+    <div id="leaves-container" class="leaves-container"></div>
+
+
+        
+        <div class="suba-mangalam">SRI SUBA MANGALAM!</div>
+        <div class="invited-text">The Esteemed presence of</div>
+
+        <div class="names-container">
+            <p class="name" style="font-size: 30px; color: #723c4a;font-family: 'Roboto Condensed', sans-serif;"> <span id="guest-name"> <b> Guest </b></span></p>
+        </div>
+
+        <div class="parents-info">
+            <div class="parent-block">
+                <span>Daughter of</span>
+                <p>Mr. & Mrs. Kumara</p>
+            </div>
+            <div class="parent-block">
+                <span>Son of</span>
+                <p>Mr. & Mrs. Amarathunga</p>
+            </div>
+        </div>
+
+        <div class="date-section">
+            <div class="date-month">DECEMBER</div>
+            <div class="date-day">10</div>
+            <div class="date-year">2026</div>
+        </div>
+        <p class="full-date">Thursday, 10<sup>nd</sup> December 2026</p>
+        <p class="full-date">Time : 9.00 A.M.</p>
+
+
+        <div class="illustration-container">
+            <img src="joduva.png" alt="Couple Illustration">
+        </div>
+
+        <div>
+            <h2 style="color:#8b5a62 ;"><b>Together Forever</b></h2>
+            <p style="color: #b59049;">_"ආදරනීය හදවත් දෙකක් එකතු වී,ජීවිතයේ ඉතිරි කාලය එකට ගෙවන්නට දිවුරුම් දුන් සුභ මොහොත"_ <b>Together Forever (සදහටම එකට)</b></p>
+        </div> <br> <br>
+        <div>
+            <h2  class="date1"> <i> Thursday, 10 <span  style="vertical-align: super; " >th</span>December 2026 </i></h2>
+            <p style="color: #b59049;">please join us as we celebrate this unfoegettable day</p>
+        </div> <br> <br> <br>
+
+        <div>
+            <h3 style="letter-spacing: 5px; color: #8b5a62;">Nirmala Hotel</h3>
+            <p style="letter-spacing: 3px; color: #8b5a62;">Western Province , Sri lanka</p>
+        </div>
+        <br><br>
+       
+    </div>
+
+
+<div class="countdown-container">
+ <h3 class="countdown-title">Counting Down</h3>
+ <div class="timer-grid">
+ <div class="time-box">
+ <span id="days">00</span>
+ <p>DAYS</p>
+ </div>
+ <div class="time-box">
+ <span id="hours">00</span>
+ <p>HOURS</p>
+</div>
+ <div class="time-box">
+ <span id="minutes">00</span>
+ <p>MINUTES</p>
+ </div>
+<div class="time-box">
+ <span id="seconds">00</span>
+ <p>SECONDS</p>
+ </div>
+ </div>
+</div>
+
+<div class="wedding-timeline-container">
+        <!--
+        <div class="event-box">
+            <div class="icon-circle">
+                <i class="fa-solid fa-file-signature"></i>
+            </div>
+            <h3 class="event-title">Registration</h3>
+            <p class="event-details">19 ND DECEMBER 2026</p>
+            <p class="event-details"><i class="fa-regular fa-clock"></i> 9:30 AM</p>
+            <p class="event-details">Taj Samudra, Colombo</p>
+        </div> 
+        -->
+
+        <div class="event-divider"></div>
+
+        <div class="event-box">
+            <div class="icon-circle">
+                <i class="fa-solid fa-hands-holding-circle"></i>
+            </div>
+            <h3 class="event-title">Poruwa Ceremony</h3>
+            <p class="event-details">10 ND DECEMBER 2026</p>
+            <p class="event-details"><i class="fa-regular fa-clock"></i> 09:55 AM</p>
+            <p class="event-details">Nirmala Hotel, Western Province</p>
+        </div>
+
+    </div>
+
+    <div class="image-container">
+    <img src="4.jpg" alt="Poto Description" class="responsive-img">
+</div>
+
+    <!--
+    <section class="gallery-section">
+  <h2 class="gallery-title" style="color: #8b5a62;">Gallery</h2>
+  
+  <div class="gallery-grid">
+    <div class="grid-item item-1">
+      <img src="1.jpg" alt="Gallery Image 1">
+    </div>
+    
+    <div class="grid-item item-2">
+      <img src="2.jpg" alt="Gallery Image 2">
+    </div>
+    
+    <div class="grid-item item-3">
+      <img src="3.jpg" alt="Gallery Image 3">
+    </div>
+    
+    <div class="grid-item item-4">
+      <img src="4.jpg" alt="Gallery Image 4">
+    </div>
+    
+    <div class="grid-item item-5">
+      <img src="5.jpg" alt="Gallery Image 5">
+    </div>
+    
+    <div class="grid-item item-6">
+      <img src="6.jpeg" alt="Gallery Image 6">
+    </div>
+  </div>
+</section>
+-->
+
+
+<section class="venue-section">
+  <div class="venue-header">
+    <span class="sub-heading">THE SETTING</span>
+    <h2 class="main-heading">Wedding Venue</h2>
+  </div>
+  
+  <div class="venue-details">
+    <div class="icon-wrapper">
+      <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+    </div>
+    
+    <span class="sub-heading">VENUE</span>
+    <h3 class="venue-name">Nirmala Hotel</h3>
+    <p class="venue-location">Western Province, Sri Lanka</p>
+  </div>
+
+
+  <div class="map-container">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10774.400880409228!2d79.9574390777983!3d6.647164593347502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2482a7569a493%3A0xfa043216cb453814!2sNirmala%20Hotel!5e1!3m2!1sen!2slk!4v1791908105895!5m2!1sen!2slk" 
+      width="100%" 
+      height="300" 
+      style="border:0;" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<section class="rsvp-section">
+  <div class="rsvp-header">
+    <span class="sub-heading">KINDLY REPLY</span>
+    <h2 class="main-heading">Will You Join Us?</h2>
+    <p class="rsvp-text">ඔබගේ සහභාගි වීම අපිට සතුටක්. ඔබ අප සමඟ එකතු වනවාදැයි කරුණාකර අපට දන්වන්න.</p>
+    <p class="rsvp-deadline">කරුණාකර 2026 දෙසැම්බර් 1 වෙනිදාට පෙර පිළිතුරු දෙන්න</p>
+  </div>
+
+  <form id="rsvp-form" class="rsvp-form">
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="fullName" placeholder="Enter your name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Will you be attending?</label>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="attending" value="Joyfully Accept" required>
+          <span class="radio-text">Joyfully Accept</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="attending" value="Regretfully Decline">
+          <span class="radio-text">Regretfully Decline</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group guest-group">
+      <label>Number of Guests</label>
+      <div class="guest-counter">
+        <button type="button" id="decrease-btn" class="counter-btn">-</button>
+        <input type="number" id="guestCount" name="guestCount" value="1" min="1" max="10" readonly>
+        <button type="button" id="increase-btn" class="counter-btn">+</button>
+      </div>
+    </div>
+
+    <button type="submit" id="submit-btn" class="submit-btn">
+      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+      SEND RSVP
+    </button>
+    
+    <p id="form-message" class="form-message"></p>
+  </form>
+</section>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+     
+<section class="footer-section">
+  <div class="footer-content">
+    <span class="save-date-sub">SAVE THE DATE</span>
+    
+    <h2 class="big-date">10 . 12 . 26</h2>
+    
+    <p class="thank-you-text">Thank you for join us</p>
+    
+    <div class="divider-icon">♥</div>
+    
+    <h3 class="couple-names">Malmi & Yasantha</h3>
+    <p class="venue-name">Narmala Hotel</p>
+    
+    <div class="contact-info">
+      <p>For more details, please contact:</p>
+      <a href="tel:+94740615741">074 061 5741 (Malmi)</a> <br>
+      <a href="tel:+94778465092">077 846 5092 (Yasantha)</a>
+    </div>
+  </div>
+  
+  <div class="developer-credit">
+    <p>Created by <strong>Home Artist</strong> | <a href="tel:+94781227941">078 122 7941</a></p>
+  </div>
+</section>
+
+    </div>
+
+    <script>
+        //count down
+        // Target date: December 12, 2026
+
+const targetDate = new Date("December 10, 2026 09:00:00").getTime();
+
+
+
+function updateCountdown() {
+
+    const now = new Date().getTime();
+
+    const difference = targetDate - now;
+
+
+
+    if (difference > 0) {
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+
+
+        // Display numbers with leading zeros (e.g. 05 instead of 5)
+
+        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+
+        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+
+        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+
+        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+    } else {
+
+        // Text shown when target date is reached
+
+        document.querySelector(".timer-grid").innerHTML = "<p style='font-size:18px; color:#5a2a27;'>The Day Has Arrived!</p>";
+
+    }
+
+}
+
+
+
+// Update every second
+
+setInterval(updateCountdown, 1000);
+
+
+
+// Run immediately on page load
+
+updateCountdown(); 
+
+
+//rsvp
+// 1. Guest Counter Logic (අඩු වැඩි කරන කොටස)
+const guestCountInput = document.getElementById('guestCount');
+const increaseBtn = document.getElementById('increase-btn');
+const decreaseBtn = document.getElementById('decrease-btn');
+
+increaseBtn.addEventListener('click', () => {
+  let currentValue = parseInt(guestCountInput.value);
+  if (currentValue < 10) { // උපරිම ගාන 10යි
+    guestCountInput.value = currentValue + 1;
+  }
+});
+
+decreaseBtn.addEventListener('click', () => {
+  let currentValue = parseInt(guestCountInput.value);
+  if (currentValue > 1) { // අවම ගාන 1යි
+    guestCountInput.value = currentValue - 1;
+  }
+});
+
+// 2. EmailJS Logic (Form එක Send කරන කොටස)
+// මතක ඇතුව ඔයාගේ Public Key එක මෙතනට දාන්න
+emailjs.init("YOUR_PUBLIC_KEY");
+
+document.getElementById('rsvp-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Page එක reload වෙන එක නවත්තනවා
+  
+  const submitBtn = document.getElementById('submit-btn');
+  const formMessage = document.getElementById('form-message');
+  
+  // බටන් එකේ text එක 'Sending...' කියලා මාරු කරනවා
+  submitBtn.innerHTML = 'SENDING...';
+  submitBtn.disabled = true;
+
+  // මතක ඇතුව Service ID එකයි Template ID එකයි මෙතනට දාන්න
+  emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+    .then(function() {
+      formMessage.style.color = "green";
+      formMessage.innerText = "Thank you! Your RSVP has been sent successfully.";
+      document.getElementById('rsvp-form').reset();
+      guestCountInput.value = 1; // Counter එක ආයෙත් 1ට ගේනවා
+      submitBtn.innerHTML = 'SEND RSVP';
+      submitBtn.disabled = false;
+    }, function(error) {
+      formMessage.style.color = "red";
+      formMessage.innerText = "Oops! Something went wrong. Please try again.";
+      submitBtn.innerHTML = 'SEND RSVP';
+      submitBtn.disabled = false;
+      console.log('FAILED...', error);
+    });
+});
+
+
+//link code
+// ඉස්සෙල්ලාම URL එකේ නම තියෙනවද බලනවා, නැත්නම් Session Storage එකෙන් ගන්නවා
+  const urlParams = new URLSearchParams(window.location.search);
+  let finalGuestName = urlParams.get('name') || sessionStorage.getItem('weddingGuestName');
+
+  // නමක් හම්බවුණොත් ඒක අදාළ තැනට දානවා
+  if (finalGuestName) {
+    const nameElement = document.getElementById('guest-name');
+    if (nameElement) {
+      nameElement.innerText = finalGuestName;
+    }
+  }
+
+
+
+    window.addEventListener('DOMContentLoaded', () => {
+        // Permission Flag එක තියෙනවාද බලනවා
+        if (sessionStorage.getItem('allowAccess') === 'true') {
+            // ආපු ගමන් Flag එක අයින් කරනවා (එතකොට Refresh කරද්දි මේක නැහැ)
+            sessionStorage.removeItem('allowAccess');
+        } else {
+            // Flag එක නැත්නම් (Refresh කළා නම් හෝ කෙලින්ම URL එකෙන් ආවා නම්) Page 1 එකට යවනවා
+            window.location.href = 'index.html'; 
+        }
+    });
+
+
+    //slide trans
+    document.addEventListener('DOMContentLoaded', () => {
+  const transitionButtons = document.querySelectorAll('.transition-btn');
+  const overlay = document.querySelector('.page-transition-overlay');
+
+  transitionButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault(); // එකපාරටම Page එක Reload වෙන එක නවත්වනවා
+      
+      const targetUrl = this.getAttribute('href'); // යා යුතු Page එකේ Link එක
+      
+      // Overlay Animation එක Active කරනවා
+      if (overlay) {
+        overlay.classList.add('is-active');
+      }
+
+      // Animation එක ඉවර වුණ ගමන් (මිලිසෙකන්ඩ් 500කින්) අලුත් පේජ් එකට යනවා
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 500);
+    });
+  });
+});
+
+
+
+//notification
+document.addEventListener('DOMContentLoaded', () => {
+    // URL එකෙන් හෝ Memory එකෙන් Data ලබා ගැනීම
+    const urlParams = new URLSearchParams(window.location.search);
+    const finalName = urlParams.get('name') || sessionStorage.getItem('weddingGuestName');
+    const finalType = urlParams.get('type') || sessionStorage.getItem('weddingInviteType');
+
+    // 1. නම වෙනස් කිරීමේ කොටස
+    if (finalName) {
+      const nameElement = document.getElementById('guest-name');
+      if (nameElement) {
+        nameElement.innerText = finalName;
+      }
+    }
+
+    // 2. Notification එක පෙන්වීමේ කොටස
+    if (finalType) {
+      const notificationBox = document.getElementById('invite-notification');
+      const messageBox = document.getElementById('notification-message');
+
+      let message = "";
+      if (finalType === '1') {
+        message = "මංගල දිනය සඳහා ඔබ වෙනුවෙන් ආසනයක් වෙන් කර ඇත.";
+      } else if (finalType === '2') {
+        message = "මංගල දිනය සඳහා ඔබ ඇතුළු ඔබගේ සහකරු වෙනුවෙන් ආසන දෙකක් වෙන් කර ඇත.";
+      } else if (finalType === '3') {
+        message = "මංගල දිනය සඳහා ඔබ සහ ඔබගේ මුළු පවුලම සඳහා ආසන වෙන් කර ඇත.";
+      }
+
+      if (message !== "" && notificationBox && messageBox) {
+        messageBox.innerText = message;
+        
+        // තත්පර 1කින් නොටිෆිකේෂන් එක මතු වීම
+        setTimeout(() => {
+          notificationBox.classList.add('show');
+        }, 1000);
+
+        // තත්පර 8කින් ඉබේම වැසී යාම
+        setTimeout(() => {
+          closeNotification();
+        }, 8000);
+      }
+    }
+  });
+
+  // Notification එක වහන Function එක
+  function closeNotification() {
+    const notificationBox = document.getElementById('invite-notification');
+    if (notificationBox) {
+      notificationBox.classList.remove('show');
+    }
+  }
+
+
+
+  //kola halena funtion eka
+  // Falling Leaves Effect
+document.addEventListener('DOMContentLoaded', () => {
+    const leavesContainer = document.getElementById('leaves-container');
+    
+    if (leavesContainer) {
+        const leafCount = 15; // වැටෙන කොළ ගණන (ඕන නම් වැඩි කරන්න)
+
+        for (let i = 0; i < leafCount; i++) {
+            const leaf = document.createElement('i');
+            // FontAwesome leaf icon එක දානවා
+            leaf.className = 'fa-solid fa-leaf leaf'; 
+
+            // කොළේ හැදෙන තැන (වමේ ඉඳන් දකුණට random)
+            const leftPosition = Math.random() * 100; 
+            
+            // පහළට වැටෙන්න යන කාලය (තත්පර 5 ත් 10 ත් අතර)
+            const fallDuration = Math.random() * 5 + 5; 
+            
+            // දෙපැත්තට වැනෙන කාලය (තත්පර 2 ත් 5 ත් අතර)
+            const swayDuration = Math.random() * 3 + 2; 
+            
+            // Opacity එක අඩු කරනවා (0.1 ත් 0.4 ත් අතර) - සුපිරි Look එකක් එන්න
+            const opacity = Math.random() * 0.3 + 0.1; 
+            
+            // කොළේ සයිස් එක (10px ත් 22px ත් අතර)
+            const size = Math.random() * 12 + 10; 
+            
+            // වැටෙන්න පටන් ගන්න පරක්කු වෙන වෙලාව
+            const delay = Math.random() * 5; 
+
+            // Styles ටික apply කිරීම
+            leaf.style.left = `${leftPosition}%`;
+            leaf.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
+            leaf.style.animationDelay = `${delay}s, ${delay}s`;
+            leaf.style.opacity = opacity;
+            leaf.style.fontSize = `${size}px`;
+
+            leavesContainer.appendChild(leaf);
+        }
+    }
+});
+  
+    </script>
+</body>
+</html>
