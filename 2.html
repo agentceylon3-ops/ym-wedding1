@@ -1008,22 +1008,22 @@ html, body {
   background-color: #000;
 }
 
-/* Intro active iddagale Scroll block madalu */
-body.intro-active {
+/* Intro එක පවතින විට Screen එක Scroll වීම සම්පූර්ණයෙන්ම වැළැක්වීමට (Mobile friendly lock) */
+html.intro-active, body.intro-active {
   overflow: hidden !important;
   height: 100vh !important;
-  position: fixed;
-  width: 100%;
+  position: fixed !important;
+  width: 100% !important;
 }
 
-/* Fullscreen Overlay - Mobile Viewport height fix (dvh/svh) */
+/* Fullscreen Overlay Style */
 #intro-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  height: 100dvh; /* Mobile browser address bar fix */
+  height: 100dvh;
   background-color: #000000;
   z-index: 99999;
   display: flex;
@@ -1037,12 +1037,9 @@ body.intro-active {
   position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-/* Video Fullscreen Fitting (No black bars on phone screen) */
+/* Video Fullscreen Fitting */
 #intro-video {
   width: 100%;
   height: 100%;
@@ -1050,7 +1047,7 @@ body.intro-active {
   display: block;
 }
 
-/* Skip Button - Clearly Visible on Top Right */
+/* Skip Button Styling */
 #skip-btn {
   position: absolute;
   top: 40px;
@@ -1079,14 +1076,16 @@ body.intro-active {
   pointer-events: none !important;
 }
 
-/* Main Content Visibility */
+/* Main Content Animation Fix */
 #main-content {
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  visibility: hidden;
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 }
 
 #main-content.visible {
   opacity: 1;
+  visibility: visible;
 }
 
     </style>
@@ -1096,10 +1095,9 @@ body.intro-active {
 <!-- Intro Video Container -->
 <div id="intro-overlay">
   <div class="video-wrapper">
-    <!-- Skip Button (Top Right) -->
+    <!-- Skip Button -->
     <button id="skip-btn" type="button">Skip</button>
     
-    <!-- Video element with playsinline and muted for mobile autoplay -->
     <video id="intro-video" autoplay muted playsinline preload="auto">
       <source src="intro.mp4" type="video/mp4" />
       Your browser does not support the video tag.
@@ -1109,7 +1107,7 @@ body.intro-active {
 
 <!-- Main Website Content -->
 <main id="main-content">
-  <!-- Nimma Main Web Content illi irali -->
+  <!-- ඔබේ Main Web Content එක මෙතැනට එයි -->
 </main>
 
 
@@ -1655,45 +1653,50 @@ document.addEventListener('DOMContentLoaded', () => {
   const introVideo = document.getElementById('intro-video');
   const skipBtn = document.getElementById('skip-btn');
   const mainContent = document.getElementById('main-content');
-  const body = document.body;
 
-  // Body scroll disable
-  body.classList.add('intro-active');
+  // Intro එක පවතින අවස්ථාවේ Screen එක Scroll වීම සම්පූර්ණයෙන්ම Lock කිරීම
+  document.documentElement.classList.add('intro-active');
+  document.body.classList.add('intro-active');
 
-  // Intro close Function
+  // Intro එක අයින් කර Main Page එක පෙන්වන Function එක
   function closeIntro() {
+    // Fade out effect එක ලබා දීම
     introOverlay.classList.add('fade-out');
-    body.classList.remove('intro-active');
+    
+    // Scroll lock එක ඉවත් කිරීම
+    document.documentElement.classList.remove('intro-active');
+    document.body.classList.remove('intro-active');
 
+    // Main Content එක Fade In කිරීම
     setTimeout(() => {
       mainContent.classList.add('visible');
-    }, 200);
+    }, 100);
 
+    // Overlay එක સંપૂર્ણයෙන් DOM එකෙන් ඉවත් කිරීම
     setTimeout(() => {
       introOverlay.style.display = 'none';
     }, 1000);
   }
 
-  // Video play end agiddaga close aguthe
+  // 1. Video එක අවසන් වූ විට
   introVideo.addEventListener('ended', closeIntro);
 
-  // Skip button click madiddaga close aguthe
-  skipBtn.addEventListener('click', closeIntro);
+  // 2. Skip Button එක ක්ලික් කළ විට
+  if (skipBtn) {
+    skipBtn.addEventListener('click', closeIntro);
+  }
 
-  // Force Play for Mobile Browsers
-  if (introVideo) {
-    introVideo.muted = true; // Mobile autoplay ge compulsory
-    
-    const playPromise = introVideo.play();
-    if (playPromise !== undefined) {
-      playPromise.catch((error) => {
-        console.log("Autoplay was prevented:", error);
-        // Autoplay fail aadre user screen tap madidaaga play agalu
-        document.addEventListener('click', () => {
-          introVideo.play();
-        }, { once: true });
-      });
-    }
+  // Mobile Autoplay සක්‍රීය කිරීම
+  introVideo.muted = true;
+  const playPromise = introVideo.play();
+  if (playPromise !== undefined) {
+    playPromise.catch((error) => {
+      console.log("Autoplay was prevented:", error);
+      // Browser එකෙන් Block කළහොත් Screen එක Tap කළ සැණින් Play වීමට
+      document.addEventListener('click', () => {
+        introVideo.play();
+      }, { once: true });
+    });
   }
 });
 
