@@ -1000,6 +1000,13 @@ body {
 
 
 /*intro video*/
+/* Intro එක පවතින විට Screen එක Scroll වීම සම්පූර්ණයෙන්ම වැළැක්වීමට */
+body.intro-active {
+  overflow: hidden;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
 
 /* Fullscreen Overlay Style */
 #intro-overlay {
@@ -1014,40 +1021,35 @@ body {
   justify-content: center;
   align-items: center;
   opacity: 1;
-  transition: opacity 1.2s ease-in-out; /* Smooth Fade Out Animation */
+  transition: opacity 1.2s ease-in-out;
 }
 
-/* Video Frame (Responsive 9:16) */
 .video-wrapper {
   position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
+/* Phone එකේ කළු ඉස්මතු වීම් (Black Bars) නැතිව සම්පූර්ණ Screen එකම පිරී යාමට (object-fit: cover) */
 #intro-video {
-  /* 9:16 Aspect Ratio එක Tab/Desktop වලදී පවා හරියටම පවත්වා ගැනීමට */
-  aspect-ratio: 9 / 16;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
+  width: 100%;
   height: 100%;
-  object-fit: contain; /* Video එක කැපෙන්නේ නැතිව සම්පූර්ණයෙන්ම පෙනීමට */
+  object-fit: cover; 
+  display: block;
 }
 
-/* Skip Button Style */
+/* Skip Button එක උඩට සහ පැහැදිලිව පෙනෙන ලෙස සකස් කිරීම */
 #skip-btn {
   position: absolute;
-  bottom: 30px;
+  top: 30px;   /* Phone එකේ ඉහළ කොටසින් පෙන්වයි */
   right: 20px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 8px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 8px 20px;
   border-radius: 20px;
   font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
   backdrop-filter: blur(5px);
   z-index: 10000;
@@ -1055,10 +1057,10 @@ body {
 }
 
 #skip-btn:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.8);
 }
 
-/* Class to trigger fade out */
+/* Fade Out Animation */
 .fade-out {
   opacity: 0 !important;
   pointer-events: none;
@@ -1078,21 +1080,20 @@ body {
 </head>
 <body>
 
-  <!-- Intro Video Container -->
+<!-- Intro Video Container -->
 <div id="intro-overlay">
   <div class="video-wrapper">
-    <!-- ඔබේ Video File එකේ නම හෝ Link එක src එකට දෙන්න -->
+    <!-- Skip Button එක උඩ දකුණු කෙළවරට දමා ඇත -->
+    <button id="skip-btn">Skip</button>
+    
     <video id="intro-video" autoplay muted playsinline>
-      <source src="intro.mp4" type="video/mp4" />
+      <source src="your-video.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    
-    <!-- Video එක Skip කිරීමට කැමති අයට Button එකක් -->
-    <button id="skip-btn">Skip</button>
   </div>
 </div>
 
-<!-- Main Website Content (ඔබේ වෙබ් අඩවියේ ප්‍රධාන කොටස) -->
+<!-- Main Website Content -->
 <main id="main-content">
   <!-- ඔබේ Main Web Content එක මෙතැනට එයි -->
 </main>
@@ -1313,6 +1314,7 @@ body {
       </div>
     </div>
 
+    <!--
     <div class="form-group guest-group">
       <label>Number of Guests</label>
       <div class="guest-counter">
@@ -1321,6 +1323,7 @@ body {
         <button type="button" id="increase-btn" class="counter-btn">+</button>
       </div>
     </div>
+    -->
 
     <button type="submit" id="submit-btn" class="submit-btn">
       <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
@@ -1638,32 +1641,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const introVideo = document.getElementById('intro-video');
   const skipBtn = document.getElementById('skip-btn');
   const mainContent = document.getElementById('main-content');
+  const body = document.body;
+
+  // Intro එක පවතින අවස්ථාවේ Page එක Scroll වීම වැළැක්වීමට Class එකක් එකතු කිරීම
+  body.classList.add('intro-active');
 
   // Intro එක අයින් කර Main Page එක පෙන්වන Function එක
   function closeIntro() {
     introOverlay.classList.add('fade-out');
+    
+    // Scroll වීම නැවත සක්‍රීය කිරීම
+    body.classList.remove('intro-active');
     
     // Main Content එක Fade In කිරීම
     setTimeout(() => {
       mainContent.classList.add('visible');
     }, 300);
 
-    // Fade Out Animation එක ඉවර වූ පසු Overlay එක DOM එකෙන් Hidden කිරීම
+    // Fade Out Animation එක ඉවර වූ පසු Overlay එක Hidden කිරීම
     setTimeout(() => {
       introOverlay.style.display = 'none';
     }, 1200);
   }
 
-  // 1. Video එක Play වී අවසන් වූ විට Auto Close වීම
+  // 1. Video එක අවසන් වූ විට
   introVideo.addEventListener('ended', closeIntro);
 
-  // 2. Skip Button එක Click කළ විට Close වීම
+  // 2. Skip Button එක ක්ලික් කළ විට
   skipBtn.addEventListener('click', closeIntro);
 
-  // Auto-play Block වෙන අවස්ථාවන් වලදී ආරක්ෂිතව Handles කිරීම
+  // Autoplay handle කිරීම
   introVideo.play().catch(error => {
     console.log("Autoplay blocked:", error);
-    // Auto-play නොවූවොත් කෙළින්ම Skip කිරීමට හෝ User Tap එකක් බලාපොරොත්තු වීමට
   });
 });
 
