@@ -1212,6 +1212,50 @@ body {
 
 
 
+
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    
+    /* Background Blur (Glassmorphism Effect) */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Music play aaguvaga rotation animation (optional) */
+.music-btn.playing {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+
+
     </style>
 </head>
 <body>
@@ -1235,7 +1279,7 @@ body {
             <h3>YASANTHA & MALMI</h3>
             <button id="openBtn" class="open-btn">OPEN PAGE</button>
         </div>
-        <div class="footer-names">විවාහ උත්සවය සදහා ඔබට කෙරෙන සුහද ඇරයුමයි</div>
+        <div class="footer-names">A warm invitation to you for the wedding celebration</div>
     </div>
 </div>
 
@@ -1244,6 +1288,18 @@ body {
 
 
     <div class="invitation-card">
+
+      <!-- Background Audio Element -->
+<audio id="bg-audio" loop>
+    <source src="bgsong.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<!-- Floating Music Button -->
+<button id="music-toggle" class="music-btn" aria-label="Toggle Music">
+    <span id="music-icon">🎵</span>
+</button>
+
 
       <!--text anime-->
       <div class="main-content" id="mainContent">
@@ -1835,6 +1891,28 @@ document.addEventListener("DOMContentLoaded", function () {
         observer.observe(el);
     });
 });
+
+
+
+//music
+document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('bg-audio');
+    const musicBtn = document.getElementById('music-toggle');
+    const musicIcon = document.getElementById('music-icon');
+
+    musicBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            musicIcon.textContent = '🔊'; // Play aaguvaga icon
+            musicBtn.classList.add('playing');
+        } else {
+            audio.pause();
+            musicIcon.textContent = '🎵'; // Pause aaguvaga icon
+            musicBtn.classList.remove('playing');
+        }
+    });
+});
+
 
 
     </script>
