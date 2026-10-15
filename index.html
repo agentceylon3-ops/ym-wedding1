@@ -1511,17 +1511,6 @@ body {
       </div>
     </div>
 
- 
-    <div class="form-group guest-group">
-      <label>එනවනම් පැමිනෙන පිරිස</label>
-      <div class="guest-counter">
-        <button type="button" id="decrease-btn" class="counter-btn">-</button>
-        <input type="number" id="guestCount" name="guestCount" value="1" min="1" max="10" readonly>
-        <button type="button" id="increase-btn" class="counter-btn">+</button>
-      </div>
-    </div>
-   
-
     <button type="submit" id="submit-btn" class="submit-btn">
       <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
         <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -1626,55 +1615,46 @@ updateCountdown();
 
 
 //rsvp
-// 1. Guest Counter Logic (අඩු වැඩි කරන කොටස)
-const guestCountInput = document.getElementById('guestCount');
-const increaseBtn = document.getElementById('increase-btn');
-const decreaseBtn = document.getElementById('decrease-btn');
-
-increaseBtn.addEventListener('click', () => {
-  let currentValue = parseInt(guestCountInput.value);
-  if (currentValue < 10) { // උපරිම ගාන 10යි
-    guestCountInput.value = currentValue + 1;
-  }
-});
-
-decreaseBtn.addEventListener('click', () => {
-  let currentValue = parseInt(guestCountInput.value);
-  if (currentValue > 1) { // අවම ගාන 1යි
-    guestCountInput.value = currentValue - 1;
-  }
-});
-
-// 2. EmailJS Logic (Form එක Send කරන කොටස)
-// මතක ඇතුව ඔයාගේ Public Key එක මෙතනට දාන්න
-emailjs.init("YOUR_PUBLIC_KEY");
+(function(){
+    // ඔබේ EmailJS Public Key එක මෙහි ඇතුළත් කරන්න
+    emailjs.init("YOUR_PUBLIC_KEY");
+})();
 
 document.getElementById('rsvp-form').addEventListener('submit', function(event) {
-  event.preventDefault(); // Page එක reload වෙන එක නවත්තනවා
-  
-  const submitBtn = document.getElementById('submit-btn');
-  const formMessage = document.getElementById('form-message');
-  
-  // බටන් එකේ text එක 'Sending...' කියලා මාරු කරනවා
-  submitBtn.innerHTML = 'SENDING...';
-  submitBtn.disabled = true;
+    event.preventDefault();
+    
+    const submitBtn = document.getElementById('submit-btn');
+    const formMessage = document.getElementById('form-message');
+    
+    // දත්ත යවන අතරතුර බොත්තම අක්‍රීය කිරීම සහ ලෝඩින් පණිවිඩයක් පෙන්වීම
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Sending...";
+    formMessage.textContent = "";
 
-  // මතක ඇතුව Service ID එකයි Template ID එකයි මෙතනට දාන්න
-  emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-    .then(function() {
-      formMessage.style.color = "green";
-      formMessage.innerText = "Thank you! Your RSVP has been sent successfully.";
-      document.getElementById('rsvp-form').reset();
-      guestCountInput.value = 1; // Counter එක ආයෙත් 1ට ගේනවා
-      submitBtn.innerHTML = 'SEND RSVP';
-      submitBtn.disabled = false;
-    }, function(error) {
-      formMessage.style.color = "red";
-      formMessage.innerText = "Oops! Something went wrong. Please try again.";
-      submitBtn.innerHTML = 'SEND RSVP';
-      submitBtn.disabled = false;
-      console.log('FAILED...', error);
-    });
+    // Form එකෙන් දත්ත ලබා ගැනීම
+    const templateParams = {
+        fullName: document.getElementById('fullName').value,
+        attending: document.querySelector('input[name="attending"]:checked').value
+    };
+
+    // ඔබේ EmailJS Service ID සහ Template ID මෙහි ඇතුළත් කරන්න
+    const serviceID = "YOUR_SERVICE_ID";
+    const templateID = "YOUR_TEMPLATE_ID";
+
+    emailjs.send(serviceID, templateID, templateParams)
+        .then(function(response) {
+            formMessage.textContent = "Thank you! Your RSVP has been sent successfully.";
+            formMessage.style.color = "green";
+            document.getElementById('rsvp-form').reset();
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> SEND RSVP`;
+        }, function(error) {
+            formMessage.textContent = "Oops! Something went wrong, please try again.";
+            formMessage.style.color = "red";
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> SEND RSVP`;
+            console.error("FAILED...", error);
+        });
 });
 
    
